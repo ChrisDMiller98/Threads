@@ -8,16 +8,17 @@ namespace Threads
 {
     public class FindPiThread
     {
+        private int numDarts;
+        private int dartCount;
+        private Random rand;
         public FindPiThread(int nDarts)
         {
             numDarts = nDarts;
             dartCount = 0;
             rand = new Random();
-            rand.Next();
+            rand.Next(0,1);
         }
-        int numDarts;
-        int dartCount;
-        Random rand;
+        
         public void throwDarts()
         {
             for(int i = 0; i < numDarts; i++)
@@ -29,6 +30,17 @@ namespace Threads
             //throw.  After determining the x and y 
             //coordinates, increment your counter of 
             //how many land inside!
+        }
+        public int DartCount
+        {
+            get
+            {
+                return dartCount;
+            }
+            set
+            {
+                dartCount = value;
+            }
         }
     }
 
@@ -43,9 +55,15 @@ namespace Threads
             Console.WriteLine("How many threads would you like to run?");
             int numThreads;
             numThreads = Console.Read();
+            List<Thread> ThreadList = new List<Thread>(numThreads);
+            List<FindPiThread> FPTList = new List<FindPiThread>(numThreads);
 
-            Loop1{
-                FindPiThread FPT();
+            //Loop1
+            for(int i = 0; i < numThreads; i ++){
+                (FindPiThread FPTThread = new FindPiThread(DartCount));
+            FPTList = FPTList + FPTThread;
+            (new Threads(new ThreadStart(FindPiThread.throwDarts)));
+
 
             }
         }
